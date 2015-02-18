@@ -1,5 +1,8 @@
 import json
 import requests
+import logging
+
+logger = logging.getLogger("HALogger")
 
 solar_data = {
     "current": "5.48",
@@ -21,15 +24,16 @@ def read_data(fake=None):
 		resp = requests.get('http://192.168.1.19/data/ajax.txt?CAN=1&HASH=00100401&TYPE=5', 
 			headers={'Accept':'*/*'}, auth=('customer', '********'), timeout=3)
 	except
-		
-	
-		
-    }, function(err, response, body){
-            if(err){
-                logger.info("Solar inverter could not be reached.");
-                cb("Could not read data from solar inverter: "+err);
-                return;
-            }
+		logger.info('Could not read data from solar inverter')
+        return
+    
+    
+    
+    
+    
+    
+    
+    
             logger.verbose("Response from solar inverter: "+body);
             /* example body
             master;5.47 kW;5.47 kVA;0.00 kvar;7.05 kWh;7.05 kVAh;0.00 kvarh;34.54 kWh;34.54 kVAh;0.00 kvarh;10.10 MWh;10.10 MVAh;0.00 Mvarh;31.10 MWh;31.10 MVAh;0.00 Mvarh;
