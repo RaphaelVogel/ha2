@@ -1,2 +1,4 @@
 ha.db
-ha.log
+log.txt
+__pycache__/
+pip-log.txt
