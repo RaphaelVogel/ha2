@@ -23,9 +23,9 @@ def read_data(fake=None):
     try:
         resp = requests.get('http://192.168.1.19/data/ajax.txt?CAN=1&HASH=00100401&TYPE=5', 
             headers={'Accept':'*/*'}, auth=('customer', '********'), timeout=3)
-    except Exception:
+    except Exception as e:
         # solar inverter is switched off and not reachable if no sun
-        logger.warn('Could not read data from solar inverter')
+        logger.warn('Could not read data from solar inverter: %s' % str(e))
         return
     
     logger.debug('Response from solar inverter %s' % resp.content)
