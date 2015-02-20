@@ -16,7 +16,10 @@ def serve_static(filepath):
 @route('/solar/current')
 def current_solarproduction():
     current_data = solar.read_data(globals.fake) # returns a dictionary, will be transformed to JSON by bottle
-    return current_data
+    if current_data:
+        return current_data
+    else:
+        return HTTPResponse(dict(error="Could not read solar production values"), code=500)
 
 @route('/solar/historicProduction')
 def historic_production():
@@ -26,7 +29,7 @@ def historic_production():
     if historic_data:
         return historic_data
     else:
-        return HTTPResponse(dict(error="Could not read solar production values form DB"), code=500)
+        return HTTPResponse(dict(error="Could not read solar production values from DB"), code=500)
 
 
 # Weather data API
