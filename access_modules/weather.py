@@ -29,10 +29,10 @@ def read_data(fake=None):
     try:
         ipcon = IPConnection()
         temp_bricklet = Temperature('qnk', ipcon)
-        temp_bricklet.set_i2c_mode(Temperature.I2C_MODE_SLOW)
         humidity_bricklet = Humidity('nLC', ipcon)
         barometer_bricklet = Barometer('k5g', ipcon)
         ipcon.connect(HOST, PORT)
+        temp_bricklet.set_i2c_mode(Temperature.I2C_MODE_SLOW)
 
         temp = temp_bricklet.get_temperature() / 100.0
         if 45 < temp < -30:

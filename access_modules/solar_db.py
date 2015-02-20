@@ -4,7 +4,7 @@ import logging
 logger = logging.getLogger("ha_logger")
 
 
-def read_solardata(year=None, month=None):
+def read_data(year=None, month=None):
     retdata = {"solar_data": []}
     sqlstring = None
     if not year:

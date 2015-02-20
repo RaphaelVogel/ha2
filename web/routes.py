@@ -25,7 +25,7 @@ def current_solarproduction():
 def historic_production():
     year = request.query.year
     month = request.query.month
-    historic_data = weather_db.read_temperature(year, month)
+    historic_data = solar_db.read_data(year, month)
     if historic_data:
         return historic_data
     else:
@@ -37,7 +37,10 @@ def historic_production():
 @route('/weather/current')
 def current_weather():
     current_data = weather.read_data(globals.fake)
-    return current_data
+    if current_data:
+        return current_data
+    else:
+        return HTTPResponse(dict(error="Could not read weather data values"), code=500)
 
 @route('/weather/historicTemperatures')
 def historic_temperatures():
