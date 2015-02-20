@@ -2,3 +2,4 @@ ha.db
 log.txt
 __pycache__/
 pip-log.txt
+.idea/

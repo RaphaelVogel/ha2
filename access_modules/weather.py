@@ -20,8 +20,9 @@ weather_data['humidity_unit'] = '%RH'
 weather_data['pressure'] = '1013.6'
 weather_data['pressure_unit'] = 'mbar'
 
+
 def read_data(fake=None):
-    ''' Reads data from all weather sensors and returns it as Dictionary. In case of an error None is returned'''
+    """ Reads data from all weather sensors and returns it as Dictionary. In case of an error None is returned"""
     if fake:
         return weather_data
 
@@ -33,21 +34,21 @@ def read_data(fake=None):
         barometer_bricklet = Barometer('k5g', ipcon)
         ipcon.connect(HOST, PORT)
 
-        temp = temp_bricklet.get_temperature()/100.0
+        temp = temp_bricklet.get_temperature() / 100.0
         if 45 < temp < -30:
             weather_data['temperature'] = None
             logger.warn('Got temperature value of %s Grade which is out of range' % temp)
         else:
             weather_data['temperature'] = temp
-        
-        humidity = humidity_bricklet.get_humidity()/10.0
+
+        humidity = humidity_bricklet.get_humidity() / 10.0
         if humidity < 5:
             weather_data['humidity'] = None
             logger.warn('Got humidity value of %s RH which is out of range' % humidity)
         else:
             weather_data['humidity'] = humidity
 
-        pressure = barometer_bricklet.get_air_pressure()/1000.0
+        pressure = barometer_bricklet.get_air_pressure() / 1000.0
         if 1080 < pressure < 930:
             weather_data['pressure'] = None
             logger.warn('Got pressure value of %s mbar which is out of range' % pressure)
