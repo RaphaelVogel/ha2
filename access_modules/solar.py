@@ -1,6 +1,7 @@
 import requests
 import logging
 from collections import OrderedDict
+from requests.auth import HTTPDigestAuth
 
 logger = logging.getLogger("ha_logger")
 
@@ -23,12 +24,12 @@ def read_data(fake=None):
         return solar_data
     try:
         resp = requests.get('http://192.168.1.19/data/ajax.txt?CAN=1&HASH=00100401&TYPE=5',
-                            headers={'Accept': '*/*'}, auth=('customer', '********'), timeout=3)
+                            headers={'Accept': '*/*'}, auth=HTTPDigestAuth('', ''), timeout=2.5)
     except Exception as e:
         logger.error('Could not read data from solar inverter: %s' % str(e))
         return
 
-    logger.debug('Response from solar inverter %s' % resp.content)
+    logger.debug('Response from solar inverter %s' % resp.text)
     # example body
     # master;5.47 kW;5.47 kVA;0.00 kvar;7.05 kWh;7.05 kVAh;0.00 kvarh;34.54 kWh;34.54 kVAh;0.00 kvarh;10.10 MWh;10.10 MVAh;0.00 Mvarh;31.10 MWh;31.10 MVAh;0.00 Mvarh;
     # 1;AT 5000;2.91 kW;4.1 kWh;16.44 MWh;0055A1701029;268435492;3;00100401;0
