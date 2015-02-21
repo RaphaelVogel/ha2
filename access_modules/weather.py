@@ -23,7 +23,8 @@ weather_data['pressure_unit'] = 'mbar'
 
 
 def read_data(fake=None):
-    """ Reads data from all weather sensors and returns it as Dictionary. In case of an error None is returned"""
+    """ Reads data from all weather sensors and returns it as Dictionary.
+        In case of an error or outlier None is returned"""
     if fake:
         return weather_data
 
