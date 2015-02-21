@@ -1,17 +1,17 @@
 import sqlite3
 import logging
-from access_modules import weather
+from access_modules import solar
 
 logger = logging.getLogger("ha_logger")
 
 
 def start_job():
-    current = weather.read_data()
+    current = solar.read_data()
     if not current:
-        logger.error('Weather Job: Could not read weather values from sensors')
+        logger.error('Solar Job: Could not read solar values from sensors')
         return
 
-    logger.debug('Weather Job: Temperature value: %s' % current['temperature'])
+    logger.debug('Solar Job: Temperature value: %s' % current['temperature'])
     logger.debug('Weather Job: Humidity value: %s' % current['humidity'])
     logger.debug('Weather Job: Pressure value: %s' % current['pressure'])
     try:
@@ -19,7 +19,7 @@ def start_job():
         con.row_factory = sqlite3.Row
         cur = con.cursor()
 
-        # check if temperature change is bigger than 10 C since the last chron run -> this is an outlier
+        # check if temperature change is bigger than 8 C since the last chron run -> this is an outlier
         sqlstring = "select max(timestamp), val_real from sensordata where device_id = 1 and sensor_id = 1"
         cur.execute(sqlstring)
         last = cur.fetchone()
@@ -28,7 +28,7 @@ def start_job():
             cur.execute("insert into sensordata (device_id, sensor_id, val_real) VALUES (1,1,?)", (current['temperature'],))
         else:
             logger.debug('Last temperature value read from DB: %s' % last['val_real'])
-            if current['temperature'] and abs(last['val_real'] - current['temperature']) <= 10:
+            if current['temperature'] and abs(last['val_real'] - current['temperature']) <= 8:
                 logger.debug('Insert new temperature value: %s' % current['temperature'])
                 cur.execute('insert into sensordata (device_id, sensor_id, val_real) VALUES (1,1,?)', (current['temperature'],))
             else:
@@ -80,6 +80,7 @@ def start_job():
     return
 
 if __name__ == '__main__':
-    logger.debug('Starting weather job')
+    logger.debug('Starting solar job')
     start_job()
-    logger.debug('Weather job stopped')
+    logger.debug('Solar job stopped')
+
