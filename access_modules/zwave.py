@@ -1,5 +1,9 @@
 import requests
 import logging
+import configparser
+
+cfg = configparser.ConfigParser()
+cfg.read('./tools/config.txt')
 
 logger = logging.getLogger("ha_logger")
 
@@ -11,7 +15,7 @@ def read_devices_status(fake=None):
 
     # read status of livingroom light
     try:
-        resp = requests.post('http://haserver:8083/ZWaveAPI/Run/devices[2].instances[0].SwitchBinary.data.level.value')
+        resp = requests.post(cfg['zwave']['host'] + '/ZWaveAPI/Run/devices[2].instances[0].SwitchBinary.data.level.value')
         logger.debug('Response from livingroom light status: %s' % resp.content)
         device_state['livingroom_light'] = 'OFF' if resp.content == 'false' else 'ON'
         return device_state
@@ -28,8 +32,7 @@ def set_livingroom_light(state, fake=None):
 
     on_off = 255 if state == 'ON' else 0
     try:
-        resp = requests.post(
-            'http://haserver:8083/ZWaveAPI/Run/devices[2].instances[0].SwitchBinary.Set(' + on_off + ')')
+        resp = requests.post(cfg['zwave']['host'] + '/ZWaveAPI/Run/devices[2].instances[0].SwitchBinary.Set(' + on_off + ')')
 
     except Exception as e:
         logger.error('Could not switch the livingroom light %s: %s' % (state, str(e)))

@@ -6,9 +6,10 @@ from tinkerforge.ip_connection import IPConnection
 from tinkerforge.bricklet_temperature import Temperature
 from tinkerforge.bricklet_humidity import Humidity
 from tinkerforge.bricklet_barometer import Barometer
+import configparser
 
-HOST = 'busmaster'
-PORT = 4223
+cfg = configparser.ConfigParser()
+cfg.read('./tools/config.txt')
 
 logger = logging.getLogger("ha_logger")
 
@@ -31,7 +32,7 @@ def read_data(fake=None):
         temp_bricklet = Temperature('qnk', ipcon)
         humidity_bricklet = Humidity('nLC', ipcon)
         barometer_bricklet = Barometer('k5g', ipcon)
-        ipcon.connect(HOST, PORT)
+        ipcon.connect(cfg['weather']['host'], int(cfg['weather']['port']))
         temp_bricklet.set_i2c_mode(Temperature.I2C_MODE_SLOW)
 
         temp = temp_bricklet.get_temperature() / 100.0

@@ -2,6 +2,10 @@ import requests
 import logging
 from collections import OrderedDict
 from requests.auth import HTTPDigestAuth
+import configparser
+
+cfg = configparser.ConfigParser()
+cfg.read('./tools/config.txt')
 
 logger = logging.getLogger("ha_logger")
 
@@ -23,15 +27,16 @@ def read_data(fake=None):
     if fake:
         return solar_data
     try:
-        resp = requests.get('http://192.168.1.19/data/ajax.txt?CAN=1&HASH=00100401&TYPE=5',
-                            headers={'Accept': '*/*'}, auth=HTTPDigestAuth('', ''), timeout=2.5)
+        resp = requests.get(cfg['solar']['url'], headers={'Accept': '*/*'},
+                            auth=HTTPDigestAuth(cfg['solar']['user'], cfg['solar']['password']), timeout=2.5)
     except Exception as e:
         logger.error('Could not read data from solar inverter: %s' % str(e))
         return
 
     logger.debug('Response from solar inverter %s' % resp.text)
     # example body
-    # master;5.47 kW;5.47 kVA;0.00 kvar;7.05 kWh;7.05 kVAh;0.00 kvarh;34.54 kWh;34.54 kVAh;0.00 kvarh;10.10 MWh;10.10 MVAh;0.00 Mvarh;31.10 MWh;31.10 MVAh;0.00 Mvarh;
+    # master;5.47 kW;5.47 kVA;0.00 kvar;7.05 kWh;7.05 kVAh;0.00 kvarh;34.54 kWh;34.54 kVAh;0.00 kvarh;10.10 MWh;
+    # 10.10 MVAh;0.00 Mvarh;31.10 MWh;31.10 MVAh;0.00 Mvarh;
     # 1;AT 5000;2.91 kW;4.1 kWh;16.44 MWh;0055A1701029;268435492;3;00100401;0
     # 2;NT 4200;2.53 kW;3.4 kWh;14.66 MWh;0044A0313104;268435492;3;00200402;0
     split_content = resp.text.split(';')
