@@ -2,6 +2,7 @@ import sys
 import logging
 from logging.handlers import RotatingFileHandler
 from bottle import run
+import web.routes
 
 # logger configuration
 logger = logging.getLogger("ha_logger")
@@ -12,6 +13,6 @@ filehandler.setFormatter(formatter)
 logger.addHandler(filehandler)
 
 if len(sys.argv) > 1 and sys.argv[1] == 'devmode':
-    run(server='cherrypy' ,host='localhost', port=8080, debug=True, reloader=True)
+    run(server='cherrypy', host='localhost', port=8080, debug=True, reloader=True)
 else:
-    run(server='cherrypy' ,host='localhost', port=8080, debug=False, reloader=False)
+    run(server='cherrypy', host='localhost', port=8080, debug=False, reloader=False)

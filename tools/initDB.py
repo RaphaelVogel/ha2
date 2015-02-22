@@ -5,7 +5,8 @@ try:
     cur = con.cursor()
     cur.execute("CREATE TABLE IF NOT EXISTS device (device_id INTEGER NOT NULL, name TEXT NOT NULL, type TEXT, location TEXT, picture BLOB, PRIMARY KEY(device_id))")
     cur.execute("CREATE TABLE IF NOT EXISTS sensor (device_id INTEGER NOT NULL, sensor_id INTEGER NOT NULL, name TEXT, type TEXT, unit TEXT, PRIMARY KEY(device_id, sensor_id))")
-    cur.execute("CREATE TABLE IF NOT EXISTS sensordata (device_id INTEGER NOT NULL, sensor_id INTEGER NOT NULL, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, val_string TEXT, val_int INTEGER, val_real REAL)")
+    cur.execute("CREATE TABLE IF NOT EXISTS sensordata (device_id INTEGER NOT NULL, sensor_id INTEGER NOT NULL, timestamp " +
+                "DATETIME DEFAULT CURRENT_TIMESTAMP, val_string TEXT, val_int INTEGER, val_real REAL, PRIMARY KEY(device_id, sensor_id, timestamp))")
 
     # Weather station
     cur.execute("INSERT OR IGNORE INTO device (device_id, name, type) VALUES (1, 'Wetter Station', 'Tinkerforge')")
