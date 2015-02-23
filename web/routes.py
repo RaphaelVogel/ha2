@@ -1,6 +1,7 @@
-import tools.globals as glob
 from bottle import route, static_file, request, HTTPResponse
 from access_modules import solar, solar_db, weather, weather_db
+
+fake = False
 
 @route('/')
 def index():
@@ -15,7 +16,7 @@ def serve_static(filepath):
 # -------------------------------------------------------------------
 @route('/solar/current')
 def current_solarproduction():
-    current_data = solar.read_data(glob.fake) # returns a dictionary, will be transformed to JSON by bottle
+    current_data = solar.read_data(fake) # returns a dictionary, will be transformed to JSON by bottle
     if current_data:
         return current_data
     else:
@@ -36,7 +37,7 @@ def historic_production():
 # -------------------------------------------------------------------
 @route('/weather/current')
 def current_weather():
-    current_data = weather.read_data(glob.fake)
+    current_data = weather.read_data(fake)
     if current_data:
         return current_data
     else:
