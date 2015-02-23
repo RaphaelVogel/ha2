@@ -1,5 +1,5 @@
 from bottle import route, static_file, request, HTTPResponse
-from access_modules import solar, solar_db, weather, weather_db
+from access_modules import solar, solar_db, weather, weather_db, zwave
 
 fake = False
 
@@ -75,3 +75,24 @@ def historic_pressures():
         return historic_data
     else:
         return HTTPResponse(dict(error="Could not read pressure values form DB"), code=500)
+
+
+# Zwave API
+# --------------------------------------------------------------------
+@route('/zwave/status')
+def zwave_complete_status():
+    zwave_status = zwave.read_devices_status(fake)
+    if zwave_status:
+        return zwave_status
+    else:
+        return HTTPResponse(dict(error="Could not read zwave status"), code=500)
+
+@route('/zwave/livingroomLight/<status>')
+def zwave_complete_status(status):
+    light_status = zwave.set_livingroom_light(status, fake)
+    if light_status:
+        return light_status
+    else:
+        return HTTPResponse(dict(error="Could not switch livingroom light"), code=500)
+
+
