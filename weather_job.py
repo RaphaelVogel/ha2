@@ -1,8 +1,15 @@
 import sqlite3
 import logging
+from logging.handlers import RotatingFileHandler
 from access_modules import weather
 
+# logger configuration
 logger = logging.getLogger("ha_logger")
+logger.setLevel(logging.DEBUG)
+filehandler = RotatingFileHandler('./log.txt', maxBytes=100000, backupCount=3)
+formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s', datefmt='%d-%m-%Y %H:%M:%S')
+filehandler.setFormatter(formatter)
+logger.addHandler(filehandler)
 
 
 def start_job():
@@ -32,8 +39,7 @@ def start_job():
                 logger.debug('Insert new temperature value: %s' % current['temperature'])
                 cur.execute('insert into sensordata (device_id, sensor_id, val_real) VALUES (1,1,?)', (current['temperature'],))
             else:
-                logger.warn('Current temperature value %s is to different from last DB value %s: ' +
-                            '-> Nothing inserted' % (current['temperature'], last['val_real']))
+                logger.warn('Current temperature value %s is to different from last DB value %s: -> Nothing inserted' % (current['temperature'], last['val_real']))
         con.commit()
 
         # check if humidity change is bigger than 10 %RH since the last chron run -> this is an outlier
@@ -49,8 +55,7 @@ def start_job():
                 logger.debug('Insert new humidity value: %s' % current['humidity'])
                 cur.execute('insert into sensordata (device_id, sensor_id, val_real) VALUES (1,2,?)', (current['humidity'],))
             else:
-                logger.warn('Current humidity value %s is to different from last DB value %s: ' +
-                            '-> Nothing inserted' % (current['humidity'], last['val_real']))
+                logger.warn('Current humidity value %s is to different from last DB value %s: -> Nothing inserted' % (current['humidity'], last['val_real']))
         con.commit()
 
         # check if pressure change is bigger than 3 mbar since the last chron run -> this is an outlier
@@ -62,12 +67,11 @@ def start_job():
             cur.execute("insert into sensordata (device_id, sensor_id, val_real) VALUES (1,3,?)", (current['pressure'],))
         else:
             logger.debug('Last pressure value read from DB: %s' % last['val_real'])
-            if current['pressure'] and abs(last['val_real'] - current['pressure']) <= 3:
+            if current['pressure'] and abs(last['val_real'] - current['pressure']) <= 4:
                 logger.debug('Insert new pressure value: %s' % current['pressure'])
                 cur.execute('insert into sensordata (device_id, sensor_id, val_real) VALUES (1,3,?)', (current['pressure'],))
             else:
-                logger.warn('Current pressure value %s is to different from last DB value %s: ' +
-                            '-> Nothing inserted' % (current['pressure'], last['val_real']))
+                logger.warn('Current pressure value %s is to different from last DB value %s: -> Nothing inserted' % (current['pressure'], last['val_real']))
         con.commit()
 
     except Exception as e:
