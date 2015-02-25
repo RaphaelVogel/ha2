@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import sqlite3
 import logging
 from logging.handlers import RotatingFileHandler
