@@ -16,4 +16,4 @@ logger.addHandler(filehandler)
 if len(sys.argv) > 1 and sys.argv[1] == 'devmode':
     run(server='cherrypy', host='localhost', port=8080, debug=True, reloader=True)
 else:
-    run(server='cherrypy', host='localhost', port=8080, debug=False, reloader=False)
+    run(server='cherrypy', host='0.0.0.0', port=8080, debug=False, reloader=False)
