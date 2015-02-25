@@ -35,7 +35,7 @@ def start_job():
             cur.execute("insert into sensordata (device_id, sensor_id, val_real) VALUES (1,1,?)", (current['temperature'],))
         else:
             logger.debug('Last temperature value read from DB: %s' % last['val_real'])
-            if current['temperature'] and abs(last['val_real'] - current['temperature']) <= 10:
+            if current['temperature'] and abs(last['val_real'] - current['temperature']) <= 8:
                 logger.debug('Insert new temperature value: %s' % current['temperature'])
                 cur.execute('insert into sensordata (device_id, sensor_id, val_real) VALUES (1,1,?)', (current['temperature'],))
             else:
@@ -51,7 +51,7 @@ def start_job():
             cur.execute("insert into sensordata (device_id, sensor_id, val_real) VALUES (1,2,?)", (current['humidity'],))
         else:
             logger.debug('Last humidity value read from DB: %s' % last['val_real'])
-            if current['humidity'] and abs(last['val_real'] - current['humidity']) <= 10:
+            if current['humidity'] and abs(last['val_real'] - current['humidity']) <= 12:
                 logger.debug('Insert new humidity value: %s' % current['humidity'])
                 cur.execute('insert into sensordata (device_id, sensor_id, val_real) VALUES (1,2,?)', (current['humidity'],))
             else:

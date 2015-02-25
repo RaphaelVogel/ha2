@@ -31,10 +31,9 @@ def start_job():
         now = datetime.now()
         today_string = str(datetime.date(now))
         # check if there is already an entry for today
-        sqlstring = "select val_real from sensordata where device_id = 2 and sensor_id = 1 and strftime('%Y-%m-%d',timestamp) = ?"
-        cur.execute(sqlstring, (today_string,))
+        cur.execute("select val_real from sensordata where device_id = 2 and sensor_id = 1 and strftime('%Y-%m-%d',timestamp) = ?", (today_string,))
         last = cur.fetchone()
-        if not last['val_real']:
+        if not last:
             # first value for today
             logger.debug('Insert first day production value to DB %s' % current['day'])
             cur.execute("insert into sensordata (device_id, sensor_id, val_real) VALUES (2,1,?)", (current['day'],))
