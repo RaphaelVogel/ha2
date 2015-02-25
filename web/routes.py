@@ -5,11 +5,11 @@ fake = False
 
 @route('/')
 def index():
-    return static_file('index.html', root='./web')
+    return static_file('index.html', root='./ha2/web')
 
 @route('/static/<filepath:path>')
 def serve_static(filepath):
-    return static_file(filepath, root='./web/static')
+    return static_file(filepath, root='./ha2/web/static')
 
 
 # Solar inverter API
