@@ -3,4 +3,3 @@ bottle
 cherrypy
 requests
 tinkerforge
-sqlite3
