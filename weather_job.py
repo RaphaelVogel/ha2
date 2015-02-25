@@ -5,7 +5,7 @@ from access_modules import weather
 
 # logger configuration
 logger = logging.getLogger("ha_logger")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.WARN)
 filehandler = RotatingFileHandler('./log.txt', maxBytes=100000, backupCount=3)
 formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s', datefmt='%d-%m-%Y %H:%M:%S')
 filehandler.setFormatter(formatter)
