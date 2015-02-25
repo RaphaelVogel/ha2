@@ -25,7 +25,7 @@ def start_job():
 
     logger.debug('Solar Job: day production value: %s' % current['day'])
     try:
-        con = sqlite3.connect('ha.db')
+        con = sqlite3.connect('./ha2/ha.db')
         con.row_factory = sqlite3.Row
         cur = con.cursor()
 

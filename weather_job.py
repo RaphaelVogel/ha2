@@ -23,7 +23,7 @@ def start_job():
     logger.debug('Weather Job: Humidity value: %s' % current['humidity'])
     logger.debug('Weather Job: Pressure value: %s' % current['pressure'])
     try:
-        con = sqlite3.connect('ha.db')
+        con = sqlite3.connect('./ha2/ha.db')
         con.row_factory = sqlite3.Row
         cur = con.cursor()
 

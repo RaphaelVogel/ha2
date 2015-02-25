@@ -3,7 +3,7 @@ import logging
 import configparser
 
 cfg = configparser.ConfigParser()
-cfg.read('./tools/config.txt')
+cfg.read('./ha2/tools/config.txt')
 
 logger = logging.getLogger("ha_logger")
 

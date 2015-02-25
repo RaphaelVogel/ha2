@@ -35,7 +35,7 @@ def read_temperature(year=None, month=None, day=None):
             'Executed SQL statement to read temperature values for %s.%s.%s: %s' % (day, month, year, sqlstring))
 
     try:
-        con = sqlite3.connect('ha.db')
+        con = sqlite3.connect('./ha2/ha.db')
         con.row_factory = sqlite3.Row
         cur = con.cursor()
         cur.execute(sqlstring)
@@ -83,7 +83,7 @@ def read_humidity(year=None, month=None, day=None):
         logger.debug('Executed SQL statement to read humidity values for %s.%s.%s: %s' % (day, month, year, sqlstring))
 
     try:
-        con = sqlite3.connect('ha.db')
+        con = sqlite3.connect('./ha2/ha.db')
         con.row_factory = sqlite3.Row
         cur = con.cursor()
         cur.execute(sqlstring)
@@ -131,7 +131,7 @@ def read_pressure(year=None, month=None, day=None):
         logger.debug('Executed SQL statement to read pressure values for %s.%s.%s: %s' % (day, month, year, sqlstring))
 
     try:
-        con = sqlite3.connect('ha.db')
+        con = sqlite3.connect('./ha2/ha.db')
         con.row_factory = sqlite3.Row
         cur = con.cursor()
         cur.execute(sqlstring)

@@ -28,7 +28,7 @@ def read_data(year=None, month=None):
             month, year, sqlstring))
 
     try:
-        con = sqlite3.connect('ha.db')
+        con = sqlite3.connect('./ha2/ha.db')
         con.row_factory = sqlite3.Row
         cur = con.cursor()
         cur.execute(sqlstring)
