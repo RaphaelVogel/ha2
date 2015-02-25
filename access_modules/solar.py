@@ -41,7 +41,7 @@ def read_data(fake=None):
     # 2;NT 4200;2.53 kW;3.4 kWh;14.66 MWh;0044A0313104;268435492;3;00200402;0
     split_content = resp.text.split(';')
     if split_content[0] != 'master':
-        logger.warn('Incorrect data format from solar inverter')
+        logger.debug('Incorrect data format from solar inverter')
         return
 
     current_data = split_content[1].split()
