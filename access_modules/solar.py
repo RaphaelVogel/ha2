@@ -30,7 +30,7 @@ def read_data(fake=None):
         resp = requests.get(cfg['solar']['url'], headers={'Accept': '*/*'},
                             auth=HTTPDigestAuth(cfg['solar']['user'], cfg['solar']['password']), timeout=2.5)
     except Exception as e:
-        logger.error('Could not read data from solar inverter: %s' % str(e))
+        logger.debug('Could not read data from solar inverter: %s' % str(e))
         return
 
     logger.debug('Response from solar inverter %s' % resp.text)
