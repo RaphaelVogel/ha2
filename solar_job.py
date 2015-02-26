@@ -41,7 +41,7 @@ def start_job():
         else:
             # we have an entry and solar converter is still running, so update the value
             logger.debug('Update day production with value %s' % current['day'])
-            sqlstring = "update sensordata set val_real = ? where device_id = 2 and sensor_id = 1 and strftime('%Y-%m-%d',timestamp) = ?"
+            sqlstring = "update sensordata set val_real = ?, timestamp = CURRENT_TIMESTAMP where device_id = 2 and sensor_id = 1 and strftime('%Y-%m-%d',timestamp) = ?"
             cur.execute(sqlstring, (current['day'], today_string))
 
         con.commit()
