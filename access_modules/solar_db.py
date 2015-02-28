@@ -20,8 +20,7 @@ def read_data(year=None, month=None):
 
     if year and month:
         # return per day production for specified month
-        sqlstring = (
-            "select strftime('%d.%m. %Y',timestamp) as time, round(avg(val_real),2) as value from sensordata " +
+        sqlstring = ("select strftime('%d.%m. %Y',timestamp) as time, round(avg(val_real),2) as value from sensordata " +
             "where device_id = 2 and sensor_id = 1 and strftime('%Y',timestamp) = '" + year + "' and strftime('%m',timestamp) = '" + month + "' group by strftime('%d.%m. %Y',timestamp)")
         logger.debug('Executed SQL statement to read average solardata per day for month %s in year %s: %s' % (
             month, year, sqlstring))
