@@ -35,14 +35,14 @@ def start_job():
             cur.execute("insert into sensordata (device_id, sensor_id, val_real) VALUES (1,1,?)", (current['temperature'],))
         else:
             logger.debug('Last temperature value read from DB: %s' % last['val_real'])
-            if current['temperature'] and abs(last['val_real'] - current['temperature']) <= 8:
+            if current['temperature'] and abs(last['val_real'] - current['temperature']) <= 10:
                 logger.debug('Insert new temperature value: %s' % current['temperature'])
                 cur.execute('insert into sensordata (device_id, sensor_id, val_real) VALUES (1,1,?)', (current['temperature'],))
             else:
                 logger.warn('Current temperature value %s is to different from last DB value %s: -> Nothing inserted' % (current['temperature'], last['val_real']))
         con.commit()
 
-        # check if humidity change is bigger than 10 %RH since the last chron run -> this is an outlier
+        # check if humidity change is bigger than 20 %RH since the last chron run -> this is an outlier
         sqlstring = "select max(timestamp), val_real from sensordata where device_id = 1 and sensor_id = 2"
         cur.execute(sqlstring)
         last = cur.fetchone()
@@ -51,7 +51,7 @@ def start_job():
             cur.execute("insert into sensordata (device_id, sensor_id, val_real) VALUES (1,2,?)", (current['humidity'],))
         else:
             logger.debug('Last humidity value read from DB: %s' % last['val_real'])
-            if current['humidity'] and abs(last['val_real'] - current['humidity']) <= 12:
+            if current['humidity'] and abs(last['val_real'] - current['humidity']) <= 20:
                 logger.debug('Insert new humidity value: %s' % current['humidity'])
                 cur.execute('insert into sensordata (device_id, sensor_id, val_real) VALUES (1,2,?)', (current['humidity'],))
             else:
