@@ -6,3 +6,4 @@ pip-log.txt
 tools/config.txt
 __init__.pyc
 *.pyc
+ui5lib/

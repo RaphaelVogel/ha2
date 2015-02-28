@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-import sqlite3
-import logging
+import sqlite3, logging
 from logging.handlers import RotatingFileHandler
 from access_modules import solar
 from datetime import datetime

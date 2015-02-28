@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-import sys
-import logging
+import sys, logging
 from logging.handlers import RotatingFileHandler
 from bottle import run
 import web.routes

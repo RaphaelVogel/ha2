@@ -1,12 +1,11 @@
 import requests
-import logging
+import logging, configparser
 from collections import OrderedDict
 
 from tinkerforge.ip_connection import IPConnection
 from tinkerforge.bricklet_temperature import Temperature
 from tinkerforge.bricklet_humidity import Humidity
 from tinkerforge.bricklet_barometer import Barometer
-import configparser
 
 cfg = configparser.ConfigParser()
 cfg.read('./ha2/tools/config.txt')

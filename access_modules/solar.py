@@ -1,8 +1,6 @@
-import requests
-import logging
+import requests, logging, configparser
 from collections import OrderedDict
 from requests.auth import HTTPDigestAuth
-import configparser
 
 cfg = configparser.ConfigParser()
 cfg.read('./ha2/tools/config.txt')

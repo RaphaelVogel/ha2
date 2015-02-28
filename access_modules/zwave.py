@@ -1,6 +1,4 @@
-import requests
-import logging
-import configparser
+import requests, logging, configparser
 
 cfg = configparser.ConfigParser()
 cfg.read('./ha2/tools/config.txt')
