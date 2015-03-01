@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<core:View controllerName="haui.Main" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
+	<App id="haapp" backgroundImage="haui/haus.jpg">
+		<Page title="Heim Automation" enableScrolling="false">
+			<headerContent>
+				<Button icon="sap-icon://refresh" press="handleRefreshPress" />
+			</headerContent>
+		
+	        <TileContainer id="tileContainer" width="100%">
+				<StandardTile
+	                id="Weather"
+	                icon="sap-icon://temperature"
+	                title="Temperatur Luftdruck und Luftfeutigkeit"
+	                number="{weatherModel>/temperature}"
+	                numberUnit="{weatherModel>/temperatureUnit}"
+	                press="handleWeatherPress"/>
+	            <StandardTile
+	                id="HomeControl"
+	                icon="sap-icon://action-settings"
+	                title="Haussteuerung"
+					type="Monitor"
+	                info="Status: Ok"
+	                infoState="Success"
+	                press="handleHomeControlPress"/>
+				<StandardTile
+	                id="Solar"
+	                icon="sap-icon://home"
+	                title="Solaranalge"
+	                number="{solarModel>/current}"
+	                numberUnit="{solarModel>/currentUnit}"
+	                press="handleSolarPress"/>
+	            <StandardTile
+	                id="Alarm"
+	                icon="sap-icon://alert"
+	                title="Alarmanlage"
+					type="Monitor"
+	                info="Status: OK"
+	                infoState="Success"
+	                press="handleAlarmPress"/>				
+			</TileContainer>
+		</Page>
+	</App>
+</core:View>

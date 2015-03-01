@@ -3,9 +3,27 @@
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta charset="UTF-8">
+  
         <title>Home Automation</title>
+        
+        <script id="sap-ui-bootstrap"
+        src="/ui5lib/sap-ui-core.js"
+        data-sap-ui-libs="sap.m"
+        data-sap-ui-theme="sap_bluecrystal"
+        data-sap-ui-xx-bindingSyntax="complex"
+        data-sap-ui-resourceroots='{
+            "haui": "./haui"
+        }'>
+        </script>
+
+        <script>
+			jQuery.sap.require("haui.Util");
+            sap.ui.getCore().attachInit(function() {
+				sap.ui.xmlview("Mainview", "haui.Main").placeAt("content");
+            });
+        </script>
     </head>
-    <body>
-    Hello Python
-    </body>
+    
+    <body class="sapUiBody" id="content" />
+    
 </html>

@@ -7,10 +7,13 @@ fake = False
 def index():
     return static_file('index.html', root='./ha2/web')
 
-@route('/static/<filepath:path>')
+@route('/ui5lib/<filepath:path>')
 def serve_static(filepath):
-    return static_file(filepath, root='./ha2/web/static')
+    return static_file(filepath, root='./ha2/web/ui5lib')
 
+@route('/haui/<filepath:path>')
+def serve_static(filepath):
+    return static_file(filepath, root='./ha2/web/haui')
 
 # Solar inverter API
 # -------------------------------------------------------------------
