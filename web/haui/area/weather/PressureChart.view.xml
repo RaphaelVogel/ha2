@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mvc:View controllerName="haui.area.weather.PressureChart" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:viz="sap.viz">
+	<Page id="pressureChartPage"
+		showNavButton="true"
+		navButtonPress="handleNavButtonPress">
+        <viz:ui5.Line id="pressureChart">
+            <viz:dataset>
+                <viz:ui5.data.FlattenedDataset data="{pressureModel>/pressure_data}">
+                    <viz:dimensions>
+                        <viz:ui5.data.DimensionDefinition axis="1" name="Zeit" value="{time}" />
+                    </viz:dimensions>
+                    <viz:measures>
+                        <viz:ui5.data.MeasureDefinition name="Luftdruck" value="{value}" />
+                    </viz:measures>
+                </viz:ui5.data.FlattenedDataset>
+            </viz:dataset>
+        </viz:ui5.Line>
+	</Page>
+</mvc:View>
