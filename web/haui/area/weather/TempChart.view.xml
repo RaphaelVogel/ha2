@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mvc:View controllerName="haui.area.weather.TempChart" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:viz="sap.viz">
+	<Page title="Temperature Chart" id="tempChartPage"
+		showNavButton="true"
+		navButtonPress="handleNavButtonPress">
+        <core:HTML>
+
+
+
+
+
+
+        </core:HTML>
+	</Page>
+</mvc:View>
