@@ -23,7 +23,7 @@ def current_solarproduction():
     if current_data:
         return current_data
     else:
-        return HTTPResponse(dict(error="Could not read solar production values"), code=500)
+        return HTTPResponse(dict(error="Could not read solar production values"), status=500)
 
 @route('/solar/historicProduction')
 def historic_production():
@@ -33,7 +33,7 @@ def historic_production():
     if historic_data:
         return historic_data
     else:
-        return HTTPResponse(dict(error="Could not read solar production values from DB"), code=500)
+        return HTTPResponse(dict(error="Could not read solar production values from DB"), status=500)
 
 
 # Weather data API
@@ -44,7 +44,7 @@ def current_weather():
     if current_data:
         return current_data
     else:
-        return HTTPResponse(dict(error="Could not read weather data values"), code=500)
+        return HTTPResponse(dict(error="Could not read weather data values"), status=500)
 
 @route('/weather/historicTemperatures')
 def historic_temperatures():
@@ -55,7 +55,7 @@ def historic_temperatures():
     if historic_data:
         return historic_data
     else:
-        return HTTPResponse(dict(error="Could not read temperature values form DB"), code=500)
+        return HTTPResponse(dict(error="Could not read temperature values form DB"), status=500)
 
 @route('/weather/historicHumidities')
 def historic_humidities():
@@ -66,7 +66,7 @@ def historic_humidities():
     if historic_data:
         return historic_data
     else:
-        return HTTPResponse(dict(error="Could not read humiditiy values form DB"), code=500)
+        return HTTPResponse(dict(error="Could not read humiditiy values form DB"), status=500)
 
 @route('/weather/historicPressures')
 def historic_pressures():
@@ -77,7 +77,7 @@ def historic_pressures():
     if historic_data:
         return historic_data
     else:
-        return HTTPResponse(dict(error="Could not read pressure values form DB"), code=500)
+        return HTTPResponse(dict(error="Could not read pressure values form DB"), status=500)
 
 
 # Zwave API
@@ -88,7 +88,7 @@ def zwave_complete_status():
     if zwave_status:
         return zwave_status
     else:
-        return HTTPResponse(dict(error="Could not read zwave status"), code=500)
+        return HTTPResponse(dict(error="Could not read zwave status"), status=500)
 
 @route('/zwave/livingroomLight/<status>')
 def zwave_complete_status(status):
@@ -96,6 +96,6 @@ def zwave_complete_status(status):
     if light_status:
         return light_status
     else:
-        return HTTPResponse(dict(error="Could not switch livingroom light"), code=500)
+        return HTTPResponse(dict(error="Could not switch livingroom light"), status=500)
 
 
