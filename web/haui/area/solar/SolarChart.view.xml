@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<mvc:View controllerName="haui.area.solar.SolarChart" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form" xmlns:ma="sap.makit">
+<mvc:View controllerName="haui.area.solar.SolarChart" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form">
 	<Page id="solarChartPage"
-		title="Solarproduktion pro Tag"
+		title="Solarproduktion"
 		showNavButton="true"
 		navButtonPress="handleNavButtonPress">
-		
-		<ma:Chart id="solarChart" height="90%" width="100%" type="Line"
-			rows="{/days}" showRangeSelector="true" showTableView="false"
-			showTotalValue="false" >
-			<ma:category>
-				<ma:Category column="measurementdate" displayName="Datum und Zeit" />
-			</ma:category>
-			<ma:values>
-				<ma:Value expression="solarproduction" displayName="kWh°" />
-			</ma:values>
-			<ma:columns>
-				<ma:Column name="solarproduction" value="{dayproduction}" type="number" />
-				<ma:Column name="measurementdate" value="{timestamp}" />
-			</ma:columns>
-		</ma:Chart>
+
 	
 	</Page>
 </mvc:View>
