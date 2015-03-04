@@ -47,6 +47,7 @@
             }
         }, this);
 
+        // set the Y axis to the min max vales retrieved from REST layer
         weatherChartModel.attachRequestCompleted(function(req){
             if(req.getParameters().url.indexOf("historicTemperatures") > -1){
                 that.getView().byId("weatherChart").getValueAxis()
@@ -65,7 +66,8 @@
             }
         });
 	},
-	
+
+	// called if user changes dropdown box
 	handleSelectPress: function(){
 		var key = this.getView().byId("selectBox").getSelectedKey();
 		switch(key){
@@ -151,7 +153,8 @@
 			weatherChartModel.loadData("/weather/historicPressures?year="+this.year+"&month="+this.month+"&day="+this.day);
 		}
 	},
-	
+
+	// User double clicks on one value
 	chartPressed: function(oEvent){
 		var category = this.getView().byId("weatherChart").getSelectedCategory();
 		var weatherChartModel = this.getView().byId("weatherChart").getModel();

@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<mvc:View controllerName="haui.area.weather.WeatherChart" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:ma="sap.makit" xmlns:l="sap.ui.layout">
-	<Page id="weatherChartPage"
+<mvc:View controllerName="haui.area.solar.SolarChart" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form" xmlns:ma="sap.makit">
+	<Page id="solarChartPage"
 		showNavButton="true"
 		navButtonPress="handleNavButtonPress">
         <headerContent>
-		<Select id="selectBox" change="handleSelectPress"> 
+		<Select id="selectBox" change="handleSelectPress">
 			<core:Item id="allSelected" key="allSelected" text="Alle Jahre" />
 			<core:Item id="yearSelected" key="yearSelected" />
 			<core:Item id="monthSelected" key="monthSelected" />
-			<core:Item id="daySelected" key="daySelected" />
 			<core:Item id="nothingSelected" key="nothingSelected" text="----" />
         </Select>
         </headerContent>
-
-		<ma:Chart id="weatherChart" height="85%" width="100%" type="Line" showRangeSelector="true" showTableView="false"
+		
+		<ma:Chart id="solarChart" height="85%" width="100%" type="Line"
+			rows="{/solar_data}" showRangeSelector="true" showTableView="false"
 			showTotalValue="false" doubletap="chartPressed" >
 			<ma:category>
 				<ma:Category column="time" displayName="Zeitraum" />
 			</ma:category>
 			<ma:values>
-				<ma:Value expression="value" />
+				<ma:Value expression="value" displayName="kWh°" />
 			</ma:values>
 			<ma:columns>
 				<ma:Column name="value" value="{value}" type="number" />
 				<ma:Column name="time" value="{time}" />
 			</ma:columns>
 		</ma:Chart>
+	
 	</Page>
 </mvc:View>
