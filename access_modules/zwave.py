@@ -7,7 +7,7 @@ logger = logging.getLogger("ha_logger")
 
 
 def read_devices_status(fake=None):
-    device_state = {'livingroom_light': 'OFF'}
+    device_state = {'livingroom_light': 'ON'}
     if fake:
         return device_state
 
