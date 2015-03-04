@@ -42,6 +42,9 @@ def read_temperature(year=None, month=None, day=None):
         for row in all_rows:
             retdata['temp_data'].append({'time': row['time'], 'value': row['value']})
 
+        minval, maxval = get_min_max(retdata['temp_data'])
+        retdata['min'] = minval
+        retdata['max'] = maxval
         return retdata
 
     except Exception as e:
@@ -90,6 +93,9 @@ def read_humidity(year=None, month=None, day=None):
         for row in all_rows:
             retdata['humidity_data'].append({'time': row['time'], 'value': row['value']})
 
+        minval, maxval = get_min_max(retdata['humidity_data'])
+        retdata['min'] = minval
+        retdata['max'] = maxval
         return retdata
 
     except Exception as e:
@@ -138,6 +144,9 @@ def read_pressure(year=None, month=None, day=None):
         for row in all_rows:
             retdata['pressure_data'].append({'time': row['time'], 'value': row['value']})
 
+        minval, maxval = get_min_max(retdata['pressure_data'])
+        retdata['min'] = minval
+        retdata['max'] = maxval
         return retdata
 
     except Exception as e:
@@ -146,3 +155,17 @@ def read_pressure(year=None, month=None, day=None):
 
     finally:
         con.close()
+
+
+def get_min_max(list_of_dicts):
+    minval = 1200
+    maxval = -30
+    for current_dict in list_of_dicts:
+        if current_dict['value'] > maxval:
+            maxval = current_dict['value']
+        if current_dict['value'] < minval:
+            minval = current_dict['value']
+
+    minval = round(minval) - 3
+    maxval = round(maxval) + 3
+    return minval, maxval

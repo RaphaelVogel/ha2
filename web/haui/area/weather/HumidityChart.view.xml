@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<mvc:View controllerName="haui.area.weather.HumidityChart" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:viz="sap.viz">
-	<Page title="Luftfeuchte" id="humidityChartPage"
-		showNavButton="true"
-		navButtonPress="handleNavButtonPress">
-
-	</Page>
-</mvc:View>

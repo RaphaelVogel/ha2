@@ -9,9 +9,9 @@
 		</headerContent>
 		<List>
 			<items>
-				<DisplayListItem id="temperatureData" label="Temperatur" value="{weatherModel>/temperature} {weatherModel>/temperatureUnit}" type="Navigation" press="handleTempPress" />
-				<DisplayListItem id="humidityData" label="Luftfeuchtigkeit" value="{weatherModel>/humidity} {weatherModel>/humidityUnit}" type="Navigation" press="handleHumidityPress" />
-				<DisplayListItem id="pressureData" label="Luftdruck" value="{weatherModel>/pressure} {weatherModel>/pressureUnit}" type="Navigation" press="handlePressurePress" />
+				<DisplayListItem id="temperatureData" label="Temperatur" value="{weatherModel>/temperature} {weatherModel>/temperatureUnit}" type="Navigation" press="handleLinePress" />
+				<DisplayListItem id="humidityData" label="Luftfeuchtigkeit" value="{weatherModel>/humidity} {weatherModel>/humidityUnit}" type="Navigation" press="handleLinePress" />
+				<DisplayListItem id="pressureData" label="Luftdruck" value="{weatherModel>/pressure} {weatherModel>/pressureUnit}" type="Navigation" press="handleLinePress" />
 			</items>
 		</List>
 	</Page>
