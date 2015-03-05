@@ -58,7 +58,7 @@ def start_job():
                 logger.warn('Current humidity value %s is to different from last DB value %s: -> Nothing inserted' % (current['humidity'], last['val_real']))
         con.commit()
 
-        # check if pressure change is bigger than 8 mbar since the last chron run -> this is an outlier
+        # check if pressure change is bigger than 5 mbar since the last chron run -> this is an outlier
         sqlstring = "select max(timestamp), val_real from sensordata where device_id = 1 and sensor_id = 3"
         cur.execute(sqlstring)
         last = cur.fetchone()
@@ -67,7 +67,7 @@ def start_job():
             cur.execute("insert into sensordata (device_id, sensor_id, val_real) VALUES (1,3,?)", (current['pressure'],))
         else:
             logger.debug('Last pressure value read from DB: %s' % last['val_real'])
-            if current['pressure'] and abs(last['val_real'] - current['pressure']) <= 8:
+            if current['pressure'] and abs(last['val_real'] - current['pressure']) <= 5:
                 logger.debug('Insert new pressure value: %s' % current['pressure'])
                 cur.execute('insert into sensordata (device_id, sensor_id, val_real) VALUES (1,3,?)', (current['pressure'],))
             else:
