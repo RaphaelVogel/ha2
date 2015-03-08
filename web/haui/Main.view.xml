@@ -12,7 +12,7 @@
 	                icon="sap-icon://temperature"
 	                title="Temperatur Luftdruck und Luftfeutigkeit"
 	                number="{weatherModel>/temperature}"
-	                numberUnit="{weatherModel>/temperatureUnit}"
+	                numberUnit="{weatherModel>/temperature_unit}"
 	                press="handleWeatherPress"/>
 	            <StandardTile
 	                id="HomeControl"
@@ -27,7 +27,7 @@
 	                icon="sap-icon://home"
 	                title="Solaranalge"
 	                number="{solarModel>/current}"
-	                numberUnit="{solarModel>/currentUnit}"
+	                numberUnit="{solarModel>/current_unit}"
 	                press="handleSolarPress"/>
 	            <StandardTile
 	                id="Alarm"

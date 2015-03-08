@@ -9,11 +9,11 @@
 		</headerContent>
 		<List>
 			<items>
-				<StandardListItem title="Aktuell produzierter Strom" info="{solarModel>/current} {solarModel>/currentUnit}" infoState="Success" />
-				<StandardListItem title="Tages Produktion" info="{solarModel>/day} {solarModel>/dayUnit}" infoState="Success" />
-				<StandardListItem title="Monats Produktion" info="{solarModel>/month} {solarModel>/monthUnit}" infoState="Success" />
-				<StandardListItem title="Jahres Produktion" info="{solarModel>/year} {solarModel>/yearUnit}" infoState="Success" />
-				<StandardListItem title="Gesammt produzierter Strom" info="{solarModel>/total} {solarModel>/totalUnit}" infoState="Success" />
+				<StandardListItem title="Aktuell produzierter Strom" info="{solarModel>/current} {solarModel>/current_unit}" infoState="Success" />
+				<StandardListItem title="Tages Produktion" info="{solarModel>/day} {solarModel>/day_unit}" infoState="Success" />
+				<StandardListItem title="Monats Produktion" info="{solarModel>/month} {solarModel>/month_unit}" infoState="Success" />
+				<StandardListItem title="Jahres Produktion" info="{solarModel>/year} {solarModel>/year_unit}" infoState="Success" />
+				<StandardListItem title="Gesammt produzierter Strom" info="{solarModel>/total} {solarModel>/total_unit}" infoState="Success" />
 				<StandardListItem info="Chart anzeigen" infoState="Success" type="Navigation" press="handleChartDisplay" />
 			</items>
 		</List>
