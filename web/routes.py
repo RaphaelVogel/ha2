@@ -98,7 +98,7 @@ def zwave_complete_status():
         return HTTPResponse(dict(error="Could not read zwave status"), status=500)
 
 @route('/zwave/livingroomLight/<status>')
-def zwave_complete_status(status):
+def zwave_livingroom_light(status):
     light_status = zwave.set_livingroom_light(status, fake)
     if light_status:
         return light_status
