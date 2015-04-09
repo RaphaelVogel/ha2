@@ -1,4 +1,5 @@
-import sqlite3, logging
+import sqlite3
+import logging
 
 logger = logging.getLogger("ha_logger")
 
