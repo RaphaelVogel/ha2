@@ -123,7 +123,7 @@ def zwave_livingroom_light(status):
 def alarm_status(status):
     global p_alarm, alarm_conn, alarm_conn1
     if status == "ON" and p_alarm is None:
-        ctx = mp.get_context()
+        ctx = mp.get_context('spawn')
         alarm_conn, alarm_conn1 = ctx.Pipe()
         p_alarm = ctx.Process(target=alarm.start, args=(alarm_conn1,))
         p_alarm.daemon = True
