@@ -1,6 +1,6 @@
 import time
-import datetime
 import sys
+import logging
 from tinkerforge.ip_connection import IPConnection
 from tinkerforge.bricklet_laser_range_finder import BrickletLaserRangeFinder
 from threading import Thread
@@ -17,6 +17,8 @@ first = True
 cb_time_window = 1
 distance = 2790
 
+logger = logging.getLogger("ha_logger")
+
 
 def start(main_conn):
     ipcon.register_callback(IPConnection.CALLBACK_CONNECTED, cb_connected)
@@ -32,12 +34,11 @@ def start(main_conn):
         time.sleep(0.05)
 
 
-def evaluate_cb_no():
+def evaluate_cb_count():
     global first, callback_count
     time.sleep(cb_time_window)
     if callback_count > callback_threshold:
-        now = datetime.datetime.now()
-        print("Alarm: ", str(callback_count), str(now))
+        logger.warn("Alarm: %s" % str(callback_count))
 
     callback_count = 0
     first = True
@@ -46,7 +47,7 @@ def evaluate_cb_no():
 def cb_reached(distance):
     global first, callback_count
     if first:
-        th = Thread(target=evaluate_cb_no)
+        th = Thread(target=evaluate_cb_count)
         th.start()
         first = False
 

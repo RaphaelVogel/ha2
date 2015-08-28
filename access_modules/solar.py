@@ -1,4 +1,6 @@
-import requests, logging, configparser
+import requests
+import logging
+import configparser
 from collections import OrderedDict
 from requests.auth import HTTPDigestAuth
 
