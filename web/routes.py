@@ -1,11 +1,15 @@
 from bottle import route, static_file, request, HTTPResponse
-from access_modules import solar, solar_db, weather, weather_db, zwave
+from access_modules import solar, solar_db, weather, weather_db, zwave, alarm
+import multiprocessing as mp
 
 fake = False
+p_alarm = None
+
 
 @route('/')
 def index():
     return static_file('index.html', root='./ha2/web')
+
 
 @route('/haui/<filepath:path>')
 def serve_static(filepath):
@@ -32,6 +36,7 @@ def current_solarproduction():
     else:
         return HTTPResponse(dict(error="Could not read solar production values"), status=500)
 
+
 @route('/solar/historicProduction')
 def historic_production():
     year = request.query.year
@@ -53,6 +58,7 @@ def current_weather():
     else:
         return HTTPResponse(dict(error="Could not read weather data values"), status=500)
 
+
 @route('/weather/historicTemperatures')
 def historic_temperatures():
     year = request.query.year
@@ -64,6 +70,7 @@ def historic_temperatures():
     else:
         return HTTPResponse(dict(error="Could not read temperature values form DB"), status=500)
 
+
 @route('/weather/historicHumidities')
 def historic_humidities():
     year = request.query.year
@@ -74,6 +81,7 @@ def historic_humidities():
         return historic_data
     else:
         return HTTPResponse(dict(error="Could not read humiditiy values form DB"), status=500)
+
 
 @route('/weather/historicPressures')
 def historic_pressures():
@@ -97,6 +105,7 @@ def zwave_complete_status():
     else:
         return HTTPResponse(dict(error="Could not read zwave status"), status=500)
 
+
 @route('/zwave/livingroomLight/<status>')
 def zwave_livingroom_light(status):
     light_status = zwave.set_livingroom_light(status, fake)
@@ -106,3 +115,18 @@ def zwave_livingroom_light(status):
         return HTTPResponse(dict(error="Could not switch livingroom light"), status=500)
 
 
+# Alarm API
+# ----------------------------------------------------------------------
+@route('/alarm/<status>')
+def alarm_status(status):
+    if status == "ON":
+        alarm_conn, alarm_conn1 = mp.Pipe()
+        p_alarm = mp.Process(target=alarm.start, args=(alarm_conn1,))
+        p_alarm.daemon = True
+        if not p_alarm.is_alive():
+            p_alarm.start()
+            return HTTPResponse(dict(msg="Started Alarm"), status=200)
+    elif status == "OFF":
+        if p_alarm.is_alive():
+            alarm_conn.send('TERMINATE')
+            return HTTPResponse(dict(msg="Stopped Alarm"), status=200)
