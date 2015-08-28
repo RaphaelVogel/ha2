@@ -4,6 +4,8 @@ import multiprocessing as mp
 
 fake = False
 p_alarm = None
+alarm_conn = None
+alarm_conn1 = None
 
 
 @route('/')
@@ -119,14 +121,16 @@ def zwave_livingroom_light(status):
 # ----------------------------------------------------------------------
 @route('/alarm/<status>')
 def alarm_status(status):
-    if status == "ON":
+    global p_alarm, alarm_conn, alarm_conn1
+    if status == "ON" and p_alarm is None:
         alarm_conn, alarm_conn1 = mp.Pipe()
         p_alarm = mp.Process(target=alarm.start, args=(alarm_conn1,))
         p_alarm.daemon = True
-        if not p_alarm.is_alive():
-            p_alarm.start()
-            return HTTPResponse(dict(msg="Started Alarm"), status=200)
-    elif status == "OFF":
-        if p_alarm.is_alive():
-            alarm_conn.send('TERMINATE')
-            return HTTPResponse(dict(msg="Stopped Alarm"), status=200)
+        p_alarm.start()
+        return HTTPResponse(dict(msg="Started Alarm"), status=200)
+    elif status == "OFF" and p_alarm is not None:
+        alarm_conn.send("TERMINATE")
+        p_alarm = None
+        return HTTPResponse(dict(msg="Stopped Alarm"), status=200)
+    else:
+        return HTTPResponse(dict(msg="Alarm status not changed"), status=200)
